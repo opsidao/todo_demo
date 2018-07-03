@@ -1,8 +1,13 @@
 {
   "name": "todo_demo",
   "private": true,
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
   "dependencies": {
-    "@rails/webpacker": "3.5"
+    "@rails/webpacker": "3.5",
+    "cypress": "^3.0.2"
   },
   "devDependencies": {
     "webpack-dev-server": "2.11.2"
