@@ -1,7 +1,7 @@
+/* global context */
+
 import { loggedIn } from 'actions/user'
 import reducer from 'reducers/user'
-
-const context = describe // TODO Move to setupFiles
 
 describe('user reducer', () => {
   const defaultState = { userName: null }

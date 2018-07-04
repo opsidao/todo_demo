@@ -1,6 +1,6 @@
-import { LOGGED_IN, loggedIn } from 'actions/user'
+/* global context */
 
-const context = describe // TODO Move to setupFiles
+import { LOGGED_IN, loggedIn } from 'actions/user'
 
 describe('User actions', () => {
   describe('loggedIn', () => {

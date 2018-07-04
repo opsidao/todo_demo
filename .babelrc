@@ -7,13 +7,16 @@
         "uglify": true
       },
       "useBuiltIns": true
-    }]
+    }],
+    "es2015",
+    "stage-0"
   ],
 
   "plugins": [
     "syntax-dynamic-import",
     "transform-object-rest-spread",
     "transform-es2015-modules-commonjs",
+    "transform-regenerator",
     ["transform-class-properties", { "spec": true }]
   ]
 }

@@ -1,7 +1,24 @@
-import { createStore } from 'redux'
+import 'babel-polyfill'
 
-import rootReducer from 'reducers'
+import { createStore, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
 
-const store = createStore(rootReducer)
+import reducers from 'reducers'
+import sagas from 'sagas'
+
+const sagaMiddleware = createSagaMiddleware()
+
+const store = createStore(
+  reducers,
+  applyMiddleware(sagaMiddleware)
+)
+
+sagas.forEach(saga => {
+  sagaMiddleware.run(saga)
+})
+
+import { login } from 'actions/user'
+
+store.dispatch(login('theUsername'))
 
 export default store
