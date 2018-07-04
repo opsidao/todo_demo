@@ -14,10 +14,10 @@ describe('User sagas', () => {
 
     context('when the request works', () => {
       it('makes a request to the backend', () => {
-        expect(saga.next().value).toEqual(
+        expect(saga.next().value).to.deep.equal(
           call(axios.post, '/api/sessions', { username: userName })
         )
-        expect(saga.next(userName).value).toEqual(
+        expect(saga.next(userName).value).to.deep.equal(
           loggedIn(userName)
         )
       })

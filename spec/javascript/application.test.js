@@ -4,6 +4,6 @@ import application from 'packs/application'
 
 describe("A simple test", () => {
   it("works", () => {
-    expect(application).toBeDefined()
+    expect(application).not.to.be.undefined
   })
 })

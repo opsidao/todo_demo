@@ -6,9 +6,9 @@ describe('User actions', () => {
   describe('loggedIn', () => {
     context('when no proper userName is provided', () => {
       it('throws an error', () => {
-        expect(() => { loggedIn() }).toThrow()
-        expect(() => { loggedIn(null) }).toThrow()
-        expect(() => { loggedIn("") }).toThrow()
+        expect(() => { loggedIn() }).to.throw()
+        expect(() => { loggedIn(null) }).to.throw()
+        expect(() => { loggedIn("") }).to.throw()
       })
     })
 
@@ -16,7 +16,7 @@ describe('User actions', () => {
       const userName = 'theUserName'
 
       it('creates the correct action', () => {
-        expect(loggedIn(userName)).toEqual({ type: LOGGED_IN, userName })
+        expect(loggedIn(userName)).to.deep.equal({ type: LOGGED_IN, userName })
       })
     })
   })

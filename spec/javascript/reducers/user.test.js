@@ -7,7 +7,7 @@ describe('user reducer', () => {
   const defaultState = { userName: null }
 
   it('has a default state', () => {
-    expect(reducer()).toEqual(defaultState)
+    expect(reducer()).to.deep.equal(defaultState)
   })
 
   context('when the action is LOGGED_IN', () => {
@@ -16,7 +16,7 @@ describe('user reducer', () => {
     const expectedState = { userName }
 
     it('saves the username and sets the flag', () => {
-      expect(reducer(defaultState, action)).toEqual(expectedState)
+      expect(reducer(defaultState, action)).to.deep.equal(expectedState)
     })
   })
 })
