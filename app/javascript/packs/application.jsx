@@ -1,16 +1,20 @@
 import 'babel-polyfill'
 
+import { connectRouter, routerMiddleware } from 'connected-react-router'
+import { createBrowserHistory } from 'history'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
 import reducers from 'reducers'
 import sagas from 'sagas'
 
+const history = createBrowserHistory()
+
 const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(
-  reducers,
-  applyMiddleware(sagaMiddleware)
+  connectRouter(history)(reducers),
+  applyMiddleware(routerMiddleware(history), sagaMiddleware)
 )
 
 sagas.forEach(saga => {
