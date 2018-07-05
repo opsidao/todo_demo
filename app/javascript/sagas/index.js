@@ -1,4 +1,4 @@
-import { login } from 'sagas/user'
+import { loginSaga } from 'sagas/user'
 
 
-export default [login]
+export default [loginSaga]

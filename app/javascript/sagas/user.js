@@ -4,7 +4,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 
 import { LOGIN, loggedIn } from 'actions/user'
 
-export function* postLogin(action) {
+export function* loginSagaHandler(action) {
   try {
     const data = yield call(axios.post, '/api/sessions', { username: action.userName })
 
@@ -15,6 +15,6 @@ export function* postLogin(action) {
   }
 }
 
-export function* login() {
-  yield takeLatest(LOGIN, postLogin)
+export function* loginSaga() {
+  yield takeLatest(LOGIN, loginSagaHandler)
 }

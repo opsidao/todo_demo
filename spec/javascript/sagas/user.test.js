@@ -5,12 +5,12 @@ import axios from 'axios'
 import { call } from 'redux-saga/effects'
 
 import { login, loggedIn } from 'actions/user'
-import { postLogin } from 'sagas/user'
+import { loginSagaHandler } from 'sagas/user'
 
 describe('User sagas', () => {
-  describe('postLogin', () => {
+  describe('loginSagaHandler', () => {
     const userName = 'adas'
-    const saga = postLogin(login(userName))
+    const saga = loginSagaHandler(login(userName))
 
     context('when the request works', () => {
       it('makes a request to the backend', () => {
