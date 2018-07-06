@@ -7,7 +7,7 @@ RSpec.describe Api::TodosController, type: :controller do
 
   describe '#index' do
     context 'when the user is not authenticated' do
-      before { get :index, format: :json }
+      before { get :index }
 
       it 'returns a 403' do
         expect(response).to have_http_status(:forbidden)
@@ -36,7 +36,7 @@ RSpec.describe Api::TodosController, type: :controller do
 
         create_list(:todo, 2)
 
-        get :index, format: :json
+        get :index
       end
 
       it 'returns the todos in a json' do

@@ -5,7 +5,11 @@ module Api
     include Authentication
 
     def index
-      render :index, locals: { todos: Todo.for_username(current_username) }
+      respond_to do |format|
+        format.any do
+          render :index, formats: [:json], locals: { todos: Todo.for_username(current_username) }
+        end
+      end
     end
 
     def create
