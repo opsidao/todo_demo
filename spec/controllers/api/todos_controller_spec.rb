@@ -7,7 +7,7 @@ RSpec.describe Api::TodosController, type: :controller do
 
   describe '#index' do
     context 'when the user is not authenticated' do
-      before { get :index }
+      before { get :index, format: :json }
 
       it 'returns a 403' do
         expect(response).to have_http_status(:forbidden)
@@ -15,6 +15,20 @@ RSpec.describe Api::TodosController, type: :controller do
     end
 
     context 'when the user is authenticated' do
+      render_views
+
+      let(:expected_response) do
+        {
+          todos: todos.map do |todo|
+            {
+              id: todo.id,
+              text: todo.text,
+              completed: todo.completed,
+            }
+          end
+        }
+      end
+
       let!(:todos) { create_list(:todo, 2, creator: username) }
 
       before do
@@ -22,12 +36,12 @@ RSpec.describe Api::TodosController, type: :controller do
 
         create_list(:todo, 2)
 
-        get :index
+        get :index, format: :json
       end
 
       it 'returns the todos in a json' do
         expect(response).to have_http_status(:ok)
-        expect(response.body).to eq(todos.to_json)
+        expect(response.body).to eq(expected_response.to_json)
       end
     end
   end
@@ -60,7 +74,7 @@ RSpec.describe Api::TodosController, type: :controller do
         create_todo
       end
 
-      it 'returns the todos in a json' do
+      it 'creates the todo' do
         expect(response).to have_http_status(:ok)
 
         expect(created_todo.creator).to eq(username)
@@ -99,7 +113,7 @@ RSpec.describe Api::TodosController, type: :controller do
         update_todo
       end
 
-      it 'returns the todos in a json' do
+      it 'updates the todo' do
         expect(response).to have_http_status(:ok)
 
         todo.reload
@@ -139,7 +153,7 @@ RSpec.describe Api::TodosController, type: :controller do
         destroy_todo
       end
 
-      it 'returns the todos in a json' do
+      it 'destroyes the todo' do
         expect(response).to have_http_status(:no_content)
 
         expect(Api::Todo.exists?(todo.id)).to eq(false)
