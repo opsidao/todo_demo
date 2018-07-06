@@ -2,14 +2,15 @@
 
 import axios from 'axios'
 
-import { call } from 'redux-saga/effects'
+import { call, put } from 'redux-saga/effects'
 
-import { login, loggedIn } from 'actions/user'
-import { loginSagaHandler } from 'sagas/user'
+import { fetchUserInfo, login, userInfoUpdated } from 'actions/user'
+import { fetchUserInfoSagaHandler, loginSagaHandler } from 'sagas/user'
 
 describe('User sagas', () => {
+  const userName = 'adas'
+
   describe('loginSagaHandler', () => {
-    const userName = 'adas'
     const saga = loginSagaHandler(login(userName))
 
     context('when the request works', () => {
@@ -18,7 +19,25 @@ describe('User sagas', () => {
           call(axios.post, '/api/sessions', { username: userName })
         )
         expect(saga.next(userName).value).to.deep.equal(
-          loggedIn(userName)
+          put(userInfoUpdated(userName))
+        )
+      })
+    })
+  })
+
+  describe('fetchUserInfoHandler', () => {
+    const saga = fetchUserInfoSagaHandler(fetchUserInfo())
+
+    context('when the request works', () => {
+      const userInfo = { username: userName }
+
+      it('sends a request to the backend and dispatches a USER_INFO_UPDATED', () => {
+        expect(saga.next().value).to.deep.equal(
+          call(axios.get, '/api/sessions')
+        )
+
+        expect(saga.next(userInfo).value).to.deep.equal(
+          put(userInfoUpdated(userName))
         )
       })
     })

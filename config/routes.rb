@@ -12,4 +12,6 @@ Rails.application.routes.draw do
       collection { delete :destroy }
     end
   end
+
+  get '*path' => 'root#index'
 end

@@ -1,12 +1,20 @@
 import 'babel-polyfill'
 
-import { connectRouter, routerMiddleware } from 'connected-react-router'
+import React from 'react'
+
+import { connectRouter, routerMiddleware, ConnectedRouter } from 'connected-react-router'
 import { createBrowserHistory } from 'history'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { Route } from 'react-router-dom'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
+import initialAction from 'actions'
 import reducers from 'reducers'
-import sagas from 'sagas'
+import rootSaga from 'sagas'
+
+import Login from 'components/Login'
 
 const history = createBrowserHistory()
 
@@ -17,12 +25,17 @@ const store = createStore(
   applyMiddleware(routerMiddleware(history), sagaMiddleware)
 )
 
-sagas.forEach(saga => {
-  sagaMiddleware.run(saga)
-})
+sagaMiddleware.run(rootSaga)
 
-import { login } from 'actions/user'
+render(
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <Route path="/login" component={ Login } />
+    </ConnectedRouter>
+  </Provider>,
+  document.getElementById('application_root')
+)
 
-store.dispatch(login('theUsername'))
+store.dispatch(initialAction())
 
 export default store

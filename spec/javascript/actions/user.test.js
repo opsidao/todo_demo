@@ -1,23 +1,32 @@
 /* global context */
 
-import { LOGGED_IN, loggedIn } from 'actions/user'
+import {
+  FETCH_USER_INFO,
+  USER_INFO_UPDATED,
+  LOGIN,
+  fetchUserInfo,
+  userInfoUpdated,
+  login,
+} from 'actions/user'
 
 describe('User actions', () => {
-  describe('loggedIn', () => {
-    context('when no proper userName is provided', () => {
-      it('throws an error', () => {
-        expect(() => { loggedIn() }).to.throw()
-        expect(() => { loggedIn(null) }).to.throw()
-        expect(() => { loggedIn("") }).to.throw()
-      })
+  const userName = 'theUserName'
+
+  describe('userInfoUpdated', () => {
+    it('creates the correct action', () => {
+      expect(userInfoUpdated(userName)).to.deep.equal({ type: USER_INFO_UPDATED, userName })
     })
+  })
 
-    context('when a userName is provided', () => {
-      const userName = 'theUserName'
+  describe('login', () => {
+    it('creates the correct action', () => {
+      expect(login(userName)).to.deep.equal({ type: LOGIN, userName })
+    })
+  })
 
-      it('creates the correct action', () => {
-        expect(loggedIn(userName)).to.deep.equal({ type: LOGGED_IN, userName })
-      })
+  describe('fetchUserInfo', () => {
+    it('creates the correct action', () => {
+      expect(fetchUserInfo()).to.deep.equal({ type: FETCH_USER_INFO })
     })
   })
 })

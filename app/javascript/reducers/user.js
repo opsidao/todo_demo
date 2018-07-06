@@ -1,7 +1,7 @@
-import { LOGGED_IN } from 'actions/user'
+import { USER_INFO_UPDATED } from 'actions/user'
 
 const defaultState = {
-  userName: null
+  userName: null,
 }
 
 function user(state = defaultState, action) {
@@ -10,7 +10,7 @@ function user(state = defaultState, action) {
   }
 
   switch (action.type) {
-    case LOGGED_IN:
+    case USER_INFO_UPDATED:
       return {
         ...state,
         userName: action.userName,

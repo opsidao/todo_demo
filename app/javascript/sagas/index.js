@@ -1,4 +1,8 @@
-import { loginSaga } from 'sagas/user'
+import { all } from 'redux-saga/effects'
 
+import userSagas from 'sagas/user'
 
-export default [loginSaga]
+export default function* rootSaga() {
+  yield all(userSagas)
+}
+

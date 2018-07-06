@@ -1,6 +1,6 @@
 /* global context */
 
-import { loggedIn } from 'actions/user'
+import { userInfoUpdated } from 'actions/user'
 import reducer from 'reducers/user'
 
 describe('user reducer', () => {
@@ -10,9 +10,9 @@ describe('user reducer', () => {
     expect(reducer()).to.deep.equal(defaultState)
   })
 
-  context('when the action is LOGGED_IN', () => {
+  context('when the action is USER_INFO_UPDATED', () => {
     const userName = 'TheUsername'
-    const action = loggedIn(userName)
+    const action = userInfoUpdated(userName)
     const expectedState = { userName }
 
     it('saves the username and sets the flag', () => {
