@@ -3,14 +3,14 @@ import axios from 'axios'
 import { push } from 'connected-react-router'
 import { all, call, put, takeEvery } from 'redux-saga/effects'
 
-import { FETCH_USER_INFO, LOGIN, USER_INFO_UPDATED, userInfoUpdated } from 'actions/user'
+import { FETCH_USER_INFO, LOGIN, USER_INFO_UPDATED, userActions } from 'actions/user'
 
 // Action handlers
 export function* fetchUserInfoSagaHandler() {
   try {
     const userInfo = yield call(axios.get, '/api/sessions')
 
-    yield put(userInfoUpdated(userInfo.username))
+    yield put(userActions.userInfoUpdated(userInfo.username))
   } catch (error) {
     // TODO for workshop: add error handling here (test + new action + UI)
     console.log(`It failed: ${error}`) //eslint-disable-line
@@ -21,7 +21,7 @@ export function* loginSagaHandler(action) {
   try {
     yield call(axios.post, '/api/sessions', { username: action.userName })
 
-    yield put(userInfoUpdated(action.userName))
+    yield put(userActions.userInfoUpdated(action.userName))
   } catch (error) {
     // TODO for workshop: add error handling here (test + new action + UI)
     console.log(`It failed: ${error}`) //eslint-disable-line

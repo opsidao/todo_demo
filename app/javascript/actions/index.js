@@ -1,3 +1,3 @@
-import { fetchUserInfo } from 'actions/user'
+import { userActions } from 'actions/user'
 
-export default fetchUserInfo
+export default userActions.fetchUserInfo

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { connect } from 'react-redux'
 
-import { login } from 'actions/user'
+import { userActions } from 'actions/user'
 
 const Login = ({ onLoginSubmit }) =>
   <form onSubmit={ onLoginSubmit }>
@@ -20,7 +20,7 @@ const mapPropsToDispatch = dispatch => ({
     const form = event.currentTarget
     const userName = form.elements.namedItem('userName').value
 
-    dispatch(login(userName))
+    dispatch(userActions.login(userName))
   },
 })
 

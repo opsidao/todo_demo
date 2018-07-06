@@ -4,14 +4,14 @@ import axios from 'axios'
 
 import { call, put } from 'redux-saga/effects'
 
-import { fetchUserInfo, login, userInfoUpdated } from 'actions/user'
+import { userActions } from 'actions/user'
 import { fetchUserInfoSagaHandler, loginSagaHandler } from 'sagas/user'
 
 describe('User sagas', () => {
   const userName = 'adas'
 
   describe('loginSagaHandler', () => {
-    const saga = loginSagaHandler(login(userName))
+    const saga = loginSagaHandler(userActions.login(userName))
 
     context('when the request works', () => {
       it('makes a request to the backend', () => {
@@ -19,14 +19,14 @@ describe('User sagas', () => {
           call(axios.post, '/api/sessions', { username: userName })
         )
         expect(saga.next(userName).value).to.deep.equal(
-          put(userInfoUpdated(userName))
+          put(userActions.userInfoUpdated(userName))
         )
       })
     })
   })
 
   describe('fetchUserInfoHandler', () => {
-    const saga = fetchUserInfoSagaHandler(fetchUserInfo())
+    const saga = fetchUserInfoSagaHandler(userActions.fetchUserInfo())
 
     context('when the request works', () => {
       const userInfo = { username: userName }
@@ -37,7 +37,7 @@ describe('User sagas', () => {
         )
 
         expect(saga.next(userInfo).value).to.deep.equal(
-          put(userInfoUpdated(userName))
+          put(userActions.userInfoUpdated(userName))
         )
       })
     })

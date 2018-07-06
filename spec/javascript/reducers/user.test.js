@@ -1,6 +1,6 @@
 /* global context */
 
-import { userInfoUpdated } from 'actions/user'
+import { userActions } from 'actions/user'
 import reducer from 'reducers/user'
 
 describe('user reducer', () => {
@@ -12,7 +12,7 @@ describe('user reducer', () => {
 
   context('when the action is USER_INFO_UPDATED', () => {
     const userName = 'TheUsername'
-    const action = userInfoUpdated(userName)
+    const action = userActions.userInfoUpdated(userName)
     const expectedState = { userName }
 
     it('saves the username and sets the flag', () => {
