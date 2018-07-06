@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import { push } from 'connected-react-router'
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeEvery } from 'redux-saga/effects'
 
 import { FETCH_USER_INFO, LOGIN, USER_INFO_UPDATED, userActions } from 'actions/user'
 
