@@ -6,7 +6,7 @@ import { connectRouter, routerMiddleware, ConnectedRouter } from 'connected-reac
 import { createBrowserHistory } from 'history'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
@@ -15,6 +15,7 @@ import reducers from 'reducers'
 import rootSaga from 'sagas'
 
 import Login from 'components/Login'
+import Todos from 'components/Todos'
 
 const history = createBrowserHistory()
 
@@ -30,7 +31,10 @@ sagaMiddleware.run(rootSaga)
 render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Route path="/login" component={ Login } />
+      <Switch>
+        <Route path="/login" component={ Login } />
+        <Route path="/todos" component={ Todos } />
+      </Switch>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('application_root')

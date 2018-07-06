@@ -12,14 +12,16 @@ describe('Login', () => {
   })
 
   context('when I visit the login page', () => {
+    const userName = 'iAmTheUser'
+
     it('I can login', () => {
       cy.visit('/login')
 
-      cy.get('#userName').type('iAmTheUser')
+      cy.get('#userName').type(userName)
 
       cy.get('#loginButton').click()
 
-      cy.get('#loginButton').should('not.exist')
+      cy.contains(`Hello ${userName}`)
 
       cy.location('pathname').then(pathname => expect(pathname).to.equal('/todos'))
     })
