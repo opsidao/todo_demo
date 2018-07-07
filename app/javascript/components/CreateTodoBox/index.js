@@ -12,6 +12,7 @@ import { todoActions } from 'actions/todos'
 const styles = {
   form: {
     flex: 1,
+    padding: '1rem'
   },
 }
 
