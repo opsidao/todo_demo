@@ -7,7 +7,9 @@ module Api
     def index
       respond_to do |format|
         format.any do
-          render :index, formats: [:json], locals: { todos: Todo.for_username(current_username) }
+          render :index,
+                 formats: [:json],
+                 locals: { todos: Todo.for_username(current_username) }
         end
       end
     end
@@ -20,18 +22,24 @@ module Api
     end
 
     def update
-      todo = Todo.for_username(current_username).find(params.require(:id).to_i)
-
-      todo.update!(
-        text: params[:text],
-        completed: params[:completed]
-      )
+      todo.update!(text: params[:text]) if params[:text]
+      todo.update!(completed: params[:completed])
 
       render json: todo
     end
 
     def destroy
-      Todo.for_username(current_username).find(params.require(:id).to_i).destroy
+      todo.destroy
+    end
+
+    private
+
+    def todo
+      @todo ||= Todo.for_username(current_username).find(todo_id)
+    end
+
+    def todo_id
+      params.require(:id).to_i
     end
   end
 end
