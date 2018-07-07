@@ -1,4 +1,7 @@
-import { FETCH_ALL_TODOS, ALL_TODOS_FETCHED, TODO_TOGGLED } from 'actions/todos'
+import {
+  ALL_TODOS_FETCHED,
+  TODO_TOGGLED,
+  NEW_TODO_TEXT_CHANGED } from 'actions/todos'
 
 export const defaultState = {
   todos: {
@@ -6,6 +9,7 @@ export const defaultState = {
     completed: [],
     pending: [],
   },
+  newTodoText: '',
 }
 
 function todos(state = defaultState, action) {
@@ -58,7 +62,8 @@ function todos(state = defaultState, action) {
         },
       }
     }
-
+    case NEW_TODO_TEXT_CHANGED:
+      return { ...state, newTodoText: action.text }
     default:
       return state
   }

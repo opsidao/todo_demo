@@ -10,6 +10,7 @@ describe('Todos reducer', () => {
       completed: [],
       pending: [],
     },
+    newTodoText: '',
   }
 
   let action
@@ -35,6 +36,7 @@ describe('Todos reducer', () => {
       action = todoActions.allTodosFetched(todos)
 
       expectedState = {
+        ...defaultState,
         todos: {
           all: todos,
           completed: [initiallyCompletedTodo],
@@ -96,6 +98,25 @@ describe('Todos reducer', () => {
       it('updates the todo and moves it to the right state', () => {
         expect(reducer(initialState, action).todos.pending).to.deep.equal(expectedState.todos.pending)
       })
+    })
+  })
+
+  context('when the action is NEW_TODO_TEXT_CHANGED', () => {
+    const text = 'really important'
+
+    let expectedState
+
+    beforeEach(() => {
+      action = todoActions.newTodoTextChanged(text)
+
+      expectedState = {
+        ...defaultState,
+        newTodoText: text,
+      }
+    })
+
+    it('stores the updated text', () => {
+      expect(reducer(defaultState, action)).to.deep.equal(expectedState)
     })
   })
 })
