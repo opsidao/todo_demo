@@ -18,7 +18,7 @@ const styles = {
 const CreateTodoBox = ({ classes, createNote, newTodoText, onTextChanged }) => (
   <form className={ classes.form } onSubmit={ createNote }>
     <TextField
-      id="text"
+      id="newTodoText"
       label="Your TODO text"
       margin="normal"
       value={ newTodoText }
@@ -26,7 +26,7 @@ const CreateTodoBox = ({ classes, createNote, newTodoText, onTextChanged }) => (
       autoFocus
       fullWidth
     />
-    <Button color="inherit" onClick={ createNote }>
+    <Button id="createNewTodo" color="inherit" onClick={ createNote } type="submit">
       Create
     </Button>
   </form>

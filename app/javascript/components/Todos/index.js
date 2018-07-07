@@ -13,7 +13,7 @@ import Todo from './Todo'
 const Todos = ({ completionToggled, todos }) => (
   <FormControl component="fieldset">
     <FormLabel component="legend">Pending</FormLabel>
-    <FormGroup>
+    <FormGroup id='pending'>
       {
         todos.pending.length ?
           todos.pending.map(todo =>
@@ -27,7 +27,7 @@ const Todos = ({ completionToggled, todos }) => (
       }
     </FormGroup>
     <FormLabel component="legend">Completed</FormLabel>
-    <FormGroup>
+    <FormGroup id='completed'>
       {
         todos.completed.length ?
           todos.completed.map(todo =>

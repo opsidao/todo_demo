@@ -24,6 +24,16 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('login', (userName) => {
+/* global Cypress cy */
+
+Cypress.Commands.add('login', userName => {
   cy.request('POST', '/api/sessions', { username: userName })
+})
+
+Cypress.Commands.add('createTodo', text => {
+  cy.request('POST', '/api/todos', { text })
+})
+
+Cypress.Commands.add('destroyAllTodos', () => {
+  cy.request('GET', '/api/todos/destroy_all')
 })
