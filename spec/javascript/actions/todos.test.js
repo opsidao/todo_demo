@@ -2,6 +2,7 @@ import {
   FETCH_ALL_TODOS,
   ALL_TODOS_FETCHED,
   TODO_TOGGLED,
+  CREATE_TODO,
   todoActions,
 } from 'actions/todos'
 
@@ -28,6 +29,14 @@ describe('User actions', () => {
       const todo = {}
 
       expect(todoActions.todoToggled(todo, checked)).to.deep.equal({ type: TODO_TOGGLED, todo, checked })
+    })
+  })
+
+  describe('createTodo', () => {
+    it('creates the correct action', () => {
+      const text = 'this is the text'
+
+      expect(todoActions.createTodo(text)).to.deep.equal({ type: CREATE_TODO, text })
     })
   })
 })
