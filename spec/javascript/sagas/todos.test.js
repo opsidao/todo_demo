@@ -2,8 +2,7 @@
 
 import axios from 'axios'
 
-import { push } from 'connected-react-router'
-import { call, put } from 'redux-saga/effects'
+import { call, put, select } from 'redux-saga/effects'
 
 import { todoActions } from 'actions/todos'
 import { createTodoSaga, fetchAllTodosSaga, locationChangeSaga, todoToggledSaga } from 'sagas/todos'
@@ -15,13 +14,27 @@ describe('Todos sagas', () => {
     const text = 'this is important'
 
     beforeEach(() => {
-      saga = createTodoSaga(todoActions.createTodo(text))
+      saga = createTodoSaga(todoActions.createTodo())
+    })
+
+    describe('select on the store', () => {
+      it('takes the new text from the store', () => {
+        const store = { todos: { newTodoText: text } }
+        const storeSelect = saga.next()
+
+        expect(storeSelect.value.SELECT.selector(store)).to.equal(text)
+      })
     })
 
     context('when the request works', () => {
       it('makes a request to the backend', () => {
-        expect(saga.next().value).to.deep.equal(
+        saga.next() // Tested on its own
+
+        expect(saga.next(text).value).to.deep.equal(
           call(axios.post, '/api/todos', { text })
+        )
+        expect(saga.next().value).to.deep.equal(
+          put(todoActions.todoCreated())
         )
         expect(saga.next().value).to.deep.equal(
           put(todoActions.fetchAllTodos())

@@ -119,4 +119,21 @@ describe('Todos reducer', () => {
       expect(reducer(defaultState, action)).to.deep.equal(expectedState)
     })
   })
+
+  context('when the action is TODO_CREATED', () => {
+    let expectedState
+
+    beforeEach(() => {
+      action = todoActions.todoCreated()
+
+      expectedState = {
+        ...defaultState,
+        newTodoText: '',
+      }
+    })
+
+    it('erases the stored newTodoText', () => {
+      expect(reducer(defaultState, action)).to.deep.equal(expectedState)
+    })
+  })
 })

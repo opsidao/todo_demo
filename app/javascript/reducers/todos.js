@@ -1,7 +1,9 @@
 import {
   ALL_TODOS_FETCHED,
   TODO_TOGGLED,
-  NEW_TODO_TEXT_CHANGED } from 'actions/todos'
+  NEW_TODO_TEXT_CHANGED,
+  TODO_CREATED,
+} from 'actions/todos'
 
 export const defaultState = {
   todos: {
@@ -64,6 +66,8 @@ function todos(state = defaultState, action) {
     }
     case NEW_TODO_TEXT_CHANGED:
       return { ...state, newTodoText: action.text }
+    case TODO_CREATED:
+      return { ...state, newTodoText: '' }
     default:
       return state
   }

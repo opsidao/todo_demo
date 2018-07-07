@@ -15,20 +15,26 @@ const Todos = ({ completionToggled, todos }) => (
     <FormLabel component="legend">Pending</FormLabel>
     <FormGroup>
       {
-        todos.pending.map(todo =>
-          <Todo
-            key={ todo.id }
-            todo={ todo }
-            todoCompletionToggled={ completionToggled(todo) }/>
-        )
+        todos.pending.length ?
+          todos.pending.map(todo =>
+            <Todo
+              key={ todo.id }
+              todo={ todo }
+              todoCompletionToggled={ completionToggled(todo) }/>
+          )
+        :
+        <div>Nothing left to do!</div>
       }
     </FormGroup>
     <FormLabel component="legend">Completed</FormLabel>
     <FormGroup>
       {
-        todos.completed.map(todo =>
-          <Todo key={ todo.id } todo={ todo } todoCompletionToggled={ completionToggled(todo) }/>
-        )
+        todos.completed.length ?
+          todos.completed.map(todo =>
+            <Todo key={ todo.id } todo={ todo } todoCompletionToggled={ completionToggled(todo) }/>
+          )
+        :
+        <div>You might want to start doing something...</div>
       }
     </FormGroup>
   </FormControl>
