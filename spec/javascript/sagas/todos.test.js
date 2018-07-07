@@ -6,10 +6,29 @@ import { push } from 'connected-react-router'
 import { call, put } from 'redux-saga/effects'
 
 import { todoActions } from 'actions/todos'
-import { fetchAllTodosSaga, locationChangeSaga, todoToggledSaga } from 'sagas/todos'
+import { createTodoSaga, fetchAllTodosSaga, locationChangeSaga, todoToggledSaga } from 'sagas/todos'
 
 describe('Todos sagas', () => {
   let saga
+
+  describe('createTodo', () => {
+    const text = 'this is important'
+
+    beforeEach(() => {
+      saga = createTodoSaga(todoActions.createTodo(text))
+    })
+
+    context('when the request works', () => {
+      it('makes a request to the backend', () => {
+        expect(saga.next().value).to.deep.equal(
+          call(axios.post, '/api/todos', { text })
+        )
+        expect(saga.next().value).to.deep.equal(
+          put(todoActions.fetchAllTodos())
+        )
+      })
+    })
+  })
 
   describe('fetchAllTodosSaga', () => {
     const todos = { todos: [{ id: 1, text: 'a todo', completed: false }] }

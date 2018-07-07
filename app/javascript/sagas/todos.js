@@ -22,6 +22,12 @@ export function* todoToggledSaga(action) {
   yield call(axios.put, `/api/todos/${action.todo.id}`, { completed: action.checked })
 }
 
+export function* createTodoSaga(action) {
+  yield call(axios.post, '/api/todos', { text: action.text })
+
+  yield put(todoActions.fetchAllTodos())
+}
+
 export default [
   takeEvery(FETCH_ALL_TODOS, fetchAllTodosSaga),
   takeEvery('@@router/LOCATION_CHANGE', locationChangeSaga),
