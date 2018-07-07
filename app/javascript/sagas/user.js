@@ -6,29 +6,19 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import { FETCH_USER_INFO, LOGIN, USER_INFO_UPDATED, userActions } from 'actions/user'
 
 // Action handlers
-export function* fetchUserInfoSagaHandler() {
-  try {
-    const userInfo = yield call(axios.get, '/api/sessions')
+export function* fetchUserInfoSaga() {
+  const response = yield call(axios.get, '/api/sessions')
 
-    yield put(userActions.userInfoUpdated(userInfo.username))
-  } catch (error) {
-    // TODO for workshop: add error handling here (test + new action + UI)
-    console.log(`It failed: ${error}`) //eslint-disable-line
-  }
+  yield put(userActions.userInfoUpdated(response.data.username))
 }
 
-export function* loginSagaHandler(action) {
-  try {
-    yield call(axios.post, '/api/sessions', { username: action.userName })
+export function* loginSaga(action) {
+  yield call(axios.post, '/api/sessions', { username: action.userName })
 
-    yield put(userActions.userInfoUpdated(action.userName))
-  } catch (error) {
-    // TODO for workshop: add error handling here (test + new action + UI)
-    console.log(`It failed: ${error}`) //eslint-disable-line
-  }
+  yield put(userActions.userInfoUpdated(action.userName))
 }
 
-export function* userInfoUpdatedSagaHandler(action) {
+export function* userInfoUpdatedSaga(action) {
   if (!action.userName) {
     yield put(push('/login'))
   } else {
@@ -37,7 +27,7 @@ export function* userInfoUpdatedSagaHandler(action) {
 }
 
 export default [
-  takeEvery(LOGIN, loginSagaHandler),
-  takeEvery(FETCH_USER_INFO, fetchUserInfoSagaHandler),
-  takeEvery(USER_INFO_UPDATED, userInfoUpdatedSagaHandler),
+  takeEvery(LOGIN, loginSaga),
+  takeEvery(FETCH_USER_INFO, fetchUserInfoSaga),
+  takeEvery(USER_INFO_UPDATED, userInfoUpdatedSaga),
 ]

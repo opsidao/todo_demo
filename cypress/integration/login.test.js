@@ -26,4 +26,16 @@ describe('Login', () => {
       cy.location('pathname').then(pathname => expect(pathname).to.equal('/todos'))
     })
   })
+
+  context("when I'm already logged in", () => {
+    const userName = 'iAmTheUser'
+
+    it('I can go to the list of todos', () => {
+      cy.login(userName)
+
+      cy.visit('/todos')
+
+      cy.contains(`Hello ${userName}`)
+    })
+  })
 })

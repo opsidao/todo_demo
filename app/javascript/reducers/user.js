@@ -1,6 +1,6 @@
 import { USER_INFO_UPDATED } from 'actions/user'
 
-const defaultState = {
+export const defaultState = {
   userName: null,
 }
 

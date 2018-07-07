@@ -2,14 +2,46 @@ import React from 'react'
 
 import { connect } from 'react-redux'
 
-import { userActions } from 'actions/user'
+import FormLabel from '@material-ui/core/FormLabel'
+import FormControl from '@material-ui/core/FormControl'
+import FormGroup from '@material-ui/core/FormGroup'
 
-const Todos = ({ userName }) => (
-  <div>Hello { userName }</div>
+import { todoActions } from 'actions/todos'
+
+import Todo from './Todo'
+
+const Todos = ({ completionToggled, todos }) => (
+  <FormControl component="fieldset">
+    <FormLabel component="legend">Pending</FormLabel>
+    <FormGroup>
+      {
+        todos.pending.map(todo =>
+          <Todo
+            key={ todo.id }
+            todo={ todo }
+            todoCompletionToggled={ completionToggled(todo) }/>
+        )
+      }
+    </FormGroup>
+    <FormLabel component="legend">Completed</FormLabel>
+    <FormGroup>
+      {
+        todos.completed.map(todo =>
+          <Todo key={ todo.id } todo={ todo } todoCompletionToggled={ completionToggled(todo) }/>
+        )
+      }
+    </FormGroup>
+  </FormControl>
 )
 
 const mapStateToProps = state => ({
-  userName: state.user.userName
+  todos: state.todos.todos,
 })
 
-export default connect(mapStateToProps)(Todos)
+const mapDispatchToProps = dispatch => ({
+  completionToggled: todo => (event, checked) => {
+    dispatch(todoActions.todoToggled(todo, checked))
+  },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todos)

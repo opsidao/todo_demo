@@ -1,21 +1,15 @@
 
 import axios from 'axios'
 
-import { push } from 'connected-react-router'
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeEvery } from 'redux-saga/effects'
 
-import { FETCH_ALL_TODOS, todoActions } from 'actions/todos'
+import { FETCH_ALL_TODOS, TODO_TOGGLED, todoActions } from 'actions/todos'
 
 // Action handlers
 export function* fetchAllTodosSaga() {
-  try {
-    const response = yield call(axios.get, '/api/todos')
+  const response = yield call(axios.get, '/api/todos')
 
-    yield put(todoActions.allTodosFetched(response.data.todos))
-  } catch (error) {
-    // TODO for workshop: add error handling here (test + new action + UI)
-    console.log(`It failed: ${error}`) //eslint-disable-line
-  }
+  yield put(todoActions.allTodosFetched(response.data.todos))
 }
 
 export function* locationChangeSaga(action) {
@@ -24,7 +18,12 @@ export function* locationChangeSaga(action) {
   }
 }
 
+export function* todoToggledSaga(action) {
+  yield call(axios.put, `/api/todos/${action.todo.id}`, { completed: action.checked })
+}
+
 export default [
   takeEvery(FETCH_ALL_TODOS, fetchAllTodosSaga),
   takeEvery('@@router/LOCATION_CHANGE', locationChangeSaga),
+  takeEvery(TODO_TOGGLED, todoToggledSaga),
 ]

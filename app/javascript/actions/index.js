@@ -1,3 +1,5 @@
 import { userActions } from 'actions/user'
 
-export default userActions.fetchUserInfo
+const rootAction = userActions.fetchUserInfo
+
+export default rootAction
