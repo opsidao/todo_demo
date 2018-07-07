@@ -32,6 +32,12 @@ module Api
       todo.destroy
     end
 
+    unless Rails.env.production?
+      def destroy_all
+        Todo.destroy_all
+      end
+    end
+
     private
 
     def todo

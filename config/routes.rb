@@ -13,5 +13,9 @@ Rails.application.routes.draw do
     end
   end
 
+  unless Rails.env.production?
+    get '/api/todos/destroy_all', to: 'api/todos#destroy_all'
+  end
+
   get '*path' => 'root#index'
 end
