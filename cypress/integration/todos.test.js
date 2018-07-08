@@ -36,10 +36,12 @@ describe('Todos', () => {
     it('allows to mark a pending TODO as completed and then as pending again', () => {
       cy.createTodo(todoText)
 
-      cy.contains('#pending', todoText).click()
-      cy.contains('#completed', todoText).click()
-      cy.contains('#pending', todoText).click()
-      cy.contains('#completed', todoText).click()
+      cy.visit('/todos')
+
+      cy.contains('#pending label', todoText).click()
+      cy.contains('#completed label', todoText).click()
+      cy.contains('#pending label', todoText).click()
+      cy.contains('#completed label', todoText).click()
     })
   })
 })
