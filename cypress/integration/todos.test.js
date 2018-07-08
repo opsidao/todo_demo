@@ -80,7 +80,7 @@ describe('Todos', () => {
     const anotherUserName = 'anotherDude'
     const anotherUserTodoText = 'another user todo'
 
-    it.only('stores the todos attached for each username separately', () => {
+    it('stores the todos attached for each username separately', () => {
       cy.login(userName)
       cy.createTodo(todoText)
       cy.visit('/todos')
