@@ -11,6 +11,10 @@ import { todoActions } from 'actions/todos'
 
 const styles = {
   form: {
+    display: 'flex',
+    padding: '1rem',
+  },
+  textField: {
     flex: 1,
   },
 }
@@ -26,7 +30,7 @@ const CreateTodoBox = ({ classes, createNote, newTodoText, onTextChanged }) => (
       autoFocus
       fullWidth
     />
-    <Button id="createNewTodo" color="inherit" onClick={ createNote } type="submit">
+    <Button id="createNewTodo" color="primary" onClick={ createNote } type="submit">
       Create
     </Button>
   </form>

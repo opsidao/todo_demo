@@ -1,23 +1,21 @@
 import React from 'react'
 
-import { connect } from 'react-redux'
+import { Route } from 'react-router-dom'
 
 import AppBar from '@material-ui/core/AppBar'
-import Typography from '@material-ui/core/Typography'
 import Toolbar from '@material-ui/core/Toolbar'
 
-const TopBar = ({ userName }) => (
+
+import LoggedInTopBar from './LoggedInTopBar'
+import LoggedOutTopBar from './LoggedOutTopBar'
+
+const TopBar = () => (
   <AppBar position="static" color="default">
     <Toolbar>
-      <Typography variant="title" color="inherit">
-        Hello { userName }
-      </Typography>
+      <Route path='/login' component={ LoggedOutTopBar } />
+      <Route path='/todos' component={ LoggedInTopBar } />
     </Toolbar>
   </AppBar>
 )
 
-const mapStateToProps = state => ({
-  userName: state.user.userName,
-})
-
-export default connect(mapStateToProps)(TopBar)
+export default TopBar

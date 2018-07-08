@@ -24,18 +24,16 @@ const styles = {
 }
 
 const Login = ({ classes, onLoginSubmit }) =>
-  <Paper className={ classes.paper }>
-    <form className={ classes.container } onSubmit={ onLoginSubmit }>
-      <TextField
-        id="userName"
-        label="userName"
-        className={ classes.textField }
-      />
-      <Button variant="contained" color="primary" type="submit" id={ 'loginButton' }>
-        Login
-      </Button>
-    </form>
-  </Paper>
+  <form className={ classes.container } onSubmit={ onLoginSubmit }>
+    <TextField
+      id="userName"
+      label="userName"
+      className={ classes.textField }
+    />
+    <Button color="primary" type="submit" id={ 'loginButton' }>
+      Login
+    </Button>
+  </form>
 
 const mapPropsToDispatch = dispatch => ({
   onLoginSubmit: event => {
