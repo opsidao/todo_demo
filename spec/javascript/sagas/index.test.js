@@ -11,13 +11,13 @@ describe('Root saga', () => {
     const allYielded = yielded.value.ALL
 
     userSagas.forEach(saga => {
-      expect(allYielded).to.include(saga)
+      expect(allYielded).toContain(saga)
     })
 
     todosSagas.forEach(saga => {
-      expect(allYielded).to.include(saga)
+      expect(allYielded).toContain(saga)
     })
 
-    expect(allYielded).to.have.length(userSagas.length + todosSagas.length)
+    expect(allYielded).toHaveLength(userSagas.length + todosSagas.length)
   })
 })

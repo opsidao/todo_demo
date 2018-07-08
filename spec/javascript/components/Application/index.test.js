@@ -18,6 +18,6 @@ describe('Application', () => {
   it('passes the store to the Provider', () => {
     const provider = wrapper().find('Provider')
 
-    expect(provider.prop('store')).to.equal(store)
+    expect(provider.prop('store')).toEqual(store)
   })
 })

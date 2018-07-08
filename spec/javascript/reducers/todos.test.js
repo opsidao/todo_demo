@@ -26,7 +26,7 @@ describe('Todos reducer', () => {
   })
 
   it('has a default state', () => {
-    expect(reducer()).to.deep.equal(defaultState)
+    expect(reducer()).toEqual(defaultState)
   })
 
   context('when the action is ALL_TODOS_FETCHED', () => {
@@ -46,7 +46,7 @@ describe('Todos reducer', () => {
     })
 
     it('separates the todos in completed and pending', () => {
-      expect(reducer(defaultState, action)).to.deep.equal(expectedState)
+      expect(reducer(defaultState, action)).toEqual(expectedState)
     })
   })
 
@@ -78,7 +78,7 @@ describe('Todos reducer', () => {
       })
 
       it('updates the todo and moves it to the right state', () => {
-        expect(reducer(initialState, action)).to.deep.equal(expectedState)
+        expect(reducer(initialState, action)).toEqual(expectedState)
       })
     })
 
@@ -96,7 +96,7 @@ describe('Todos reducer', () => {
       })
 
       it('updates the todo and moves it to the right state', () => {
-        expect(reducer(initialState, action).todos.pending).to.deep.equal(expectedState.todos.pending)
+        expect(reducer(initialState, action).todos.pending).toEqual(expectedState.todos.pending)
       })
     })
   })
@@ -116,7 +116,7 @@ describe('Todos reducer', () => {
     })
 
     it('stores the updated text', () => {
-      expect(reducer(defaultState, action)).to.deep.equal(expectedState)
+      expect(reducer(defaultState, action)).toEqual(expectedState)
     })
   })
 
@@ -133,7 +133,7 @@ describe('Todos reducer', () => {
     })
 
     it('erases the stored newTodoText', () => {
-      expect(reducer(defaultState, action)).to.deep.equal(expectedState)
+      expect(reducer(defaultState, action)).toEqual(expectedState)
     })
   })
 })

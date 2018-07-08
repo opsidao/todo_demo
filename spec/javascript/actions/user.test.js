@@ -11,25 +11,25 @@ describe('User actions', () => {
 
   describe('fetchUserInfo', () => {
     it('creates the correct action', () => {
-      expect(userActions.fetchUserInfo()).to.deep.equal({ type: FETCH_USER_INFO })
+      expect(userActions.fetchUserInfo()).toEqual({ type: FETCH_USER_INFO })
     })
   })
 
   describe('userInfoUpdated', () => {
     it('creates the correct action', () => {
-      expect(userActions.userInfoUpdated(userName)).to.deep.equal({ type: USER_INFO_UPDATED, userName })
+      expect(userActions.userInfoUpdated(userName)).toEqual({ type: USER_INFO_UPDATED, userName })
     })
   })
 
   describe('login', () => {
     it('creates the correct action', () => {
-      expect(userActions.login(userName)).to.deep.equal({ type: LOGIN, userName })
+      expect(userActions.login(userName)).toEqual({ type: LOGIN, userName })
     })
   })
 
   describe('logout', () => {
     it('creates the correct action', () => {
-      expect(userActions.logout()).to.deep.equal({ type: LOGOUT })
+      expect(userActions.logout()).toEqual({ type: LOGOUT })
     })
   })
 })

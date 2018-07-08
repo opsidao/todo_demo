@@ -7,7 +7,7 @@ describe('Root reducer', () => {
   it('includes the user and todos reducers', () => {
     const reducer = rootReducer()
 
-    expect(reducer.user).to.deep.equal(userDefaultState)
-    expect(reducer.todos).to.deep.equal(todosDefaultState)
+    expect(reducer.user).toEqual(userDefaultState)
+    expect(reducer.todos).toEqual(todosDefaultState)
   })
 })

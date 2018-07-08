@@ -21,11 +21,11 @@ describe('User sagas', () => {
       const userInfo = { data: { username: userName } }
 
       it('sends a request to the backend and dispatches a USER_INFO_UPDATED', () => {
-        expect(saga.next().value).to.deep.equal(
+        expect(saga.next().value).toEqual(
           call(axios.get, '/api/sessions')
         )
 
-        expect(saga.next(userInfo).value).to.deep.equal(
+        expect(saga.next(userInfo).value).toEqual(
           put(userActions.userInfoUpdated(userName))
         )
       })
@@ -40,7 +40,7 @@ describe('User sagas', () => {
       })
 
       it('navigates to /todos', () => {
-        expect(saga.next().value).to.deep.equal(
+        expect(saga.next().value).toEqual(
           put(push('/todos'))
         )
       })
@@ -53,7 +53,7 @@ describe('User sagas', () => {
       })
 
       it('navigates to /login', () => {
-        expect(saga.next().value).to.deep.equal(
+        expect(saga.next().value).toEqual(
           put(push('/login'))
         )
       })
@@ -67,10 +67,10 @@ describe('User sagas', () => {
 
     context('when the request works', () => {
       it('makes a request to the backend', () => {
-        expect(saga.next().value).to.deep.equal(
+        expect(saga.next().value).toEqual(
           call(axios.post, '/api/sessions', { username: userName })
         )
-        expect(saga.next(userName).value).to.deep.equal(
+        expect(saga.next(userName).value).toEqual(
           put(userActions.userInfoUpdated(userName))
         )
       })
@@ -84,10 +84,10 @@ describe('User sagas', () => {
 
     context('when the request works', () => {
       it('makes a request to the backend and dispatches a fetchUserInfo', () => {
-        expect(saga.next().value).to.deep.equal(
+        expect(saga.next().value).toEqual(
           call(axios.delete, '/api/sessions')
         )
-        expect(saga.next(userName).value).to.deep.equal(
+        expect(saga.next(userName).value).toEqual(
           put(userActions.fetchUserInfo())
         )
       })

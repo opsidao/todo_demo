@@ -10,7 +10,7 @@ import {
 describe('User actions', () => {
   describe('fetchAllTodos', () => {
     it('creates the correct action', () => {
-      expect(todoActions.fetchAllTodos()).to.deep.equal({ type: FETCH_ALL_TODOS })
+      expect(todoActions.fetchAllTodos()).toEqual({ type: FETCH_ALL_TODOS })
     })
   })
 
@@ -18,7 +18,7 @@ describe('User actions', () => {
     const todos = []
 
     it('creates the correct action', () => {
-      expect(todoActions.allTodosFetched(todos)).to.deep.equal({ type: ALL_TODOS_FETCHED, todos })
+      expect(todoActions.allTodosFetched(todos)).toEqual({ type: ALL_TODOS_FETCHED, todos })
     })
   })
 
@@ -27,7 +27,7 @@ describe('User actions', () => {
       const checked = true
       const todo = {}
 
-      expect(todoActions.todoToggled(todo, checked)).to.deep.equal({ type: TODO_TOGGLED, todo, checked })
+      expect(todoActions.todoToggled(todo, checked)).toEqual({ type: TODO_TOGGLED, todo, checked })
     })
   })
 
@@ -35,7 +35,7 @@ describe('User actions', () => {
     it('creates the correct action', () => {
       const text = 'this is the text'
 
-      expect(todoActions.createTodo(text)).to.deep.equal({ type: CREATE_TODO, text })
+      expect(todoActions.createTodo(text)).toEqual({ type: CREATE_TODO, text })
     })
   })
 
@@ -43,7 +43,7 @@ describe('User actions', () => {
     it('creates the correct action', () => {
       const text = 'this is the text'
 
-      expect(todoActions.newTodoTextChanged(text)).to.deep.equal({ type: NEW_TODO_TEXT_CHANGED, text })
+      expect(todoActions.newTodoTextChanged(text)).toEqual({ type: NEW_TODO_TEXT_CHANGED, text })
     })
   })
 })

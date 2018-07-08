@@ -22,7 +22,7 @@ describe('Todos sagas', () => {
         const store = { todos: { newTodoText: text } }
         const storeSelect = saga.next()
 
-        expect(storeSelect.value.SELECT.selector(store)).to.equal(text)
+        expect(storeSelect.value.SELECT.selector(store)).toEqual(text)
       })
     })
 
@@ -30,13 +30,13 @@ describe('Todos sagas', () => {
       it('makes a request to the backend', () => {
         saga.next() // Tested on its own
 
-        expect(saga.next(text).value).to.deep.equal(
+        expect(saga.next(text).value).toEqual(
           call(axios.post, '/api/todos', { text })
         )
-        expect(saga.next().value).to.deep.equal(
+        expect(saga.next().value).toEqual(
           put(todoActions.todoCreated())
         )
-        expect(saga.next().value).to.deep.equal(
+        expect(saga.next().value).toEqual(
           put(todoActions.fetchAllTodos())
         )
       })
@@ -55,13 +55,13 @@ describe('Todos sagas', () => {
 
     context('when the request works', () => {
       it('makes a request to the backend', () => {
-        expect(saga.next().value).to.deep.equal(
+        expect(saga.next().value).toEqual(
           call(axios.get, '/api/todos')
         )
-        expect(saga.next(response).value).to.deep.equal(
+        expect(saga.next(response).value).toEqual(
           put(todoActions.allTodosFetched(todos))
         )
-        expect(saga.next().done).to.eq(true)
+        expect(saga.next().done).toEqual(true)
       })
     })
   })
@@ -76,7 +76,7 @@ describe('Todos sagas', () => {
       })
 
       it('dispatches a todos.fetchAllTodos() action', () => {
-        expect(saga.next().value).to.deep.equal(
+        expect(saga.next().value).toEqual(
           put(todoActions.fetchAllTodos())
         )
       })
@@ -90,8 +90,8 @@ describe('Todos sagas', () => {
       it('does nothing', () => {
         const result = saga.next()
 
-        expect(result.done).to.eq(true)
-        expect(result.value).to.eq(undefined)
+        expect(result.done).toEqual(true)
+        expect(result.value).toEqual(undefined)
       })
     })
 
@@ -103,8 +103,8 @@ describe('Todos sagas', () => {
       it('does nothing', () => {
         const result = saga.next()
 
-        expect(result.done).to.eq(true)
-        expect(result.value).to.eq(undefined)
+        expect(result.done).toEqual(true)
+        expect(result.value).toEqual(undefined)
       })
     })
   })
@@ -120,10 +120,10 @@ describe('Todos sagas', () => {
 
     context('when the request works', () => {
       it('makes a request to the backend', () => {
-        expect(saga.next().value).to.deep.equal(
+        expect(saga.next().value).toEqual(
           call(axios.put, url, { completed: checked })
         )
-        expect(saga.next().done).to.eq(true)
+        expect(saga.next().done).toEqual(true)
       })
     })
   })
