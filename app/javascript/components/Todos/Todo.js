@@ -9,6 +9,7 @@ const Todo = ({ todo, todoCompletionToggled }) => (
     <FormControlLabel
       control={
         <Checkbox
+          id={ `todo_${todo.id}` }
           checked={ todo.completed }
           value={ todo.id.toString() }
           onChange={ todoCompletionToggled }

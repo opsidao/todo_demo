@@ -61,6 +61,7 @@ describe('Todos sagas', () => {
         expect(saga.next(response).value).to.deep.equal(
           put(todoActions.allTodosFetched(todos))
         )
+        expect(saga.next().done).to.eq(true)
       })
     })
   })
