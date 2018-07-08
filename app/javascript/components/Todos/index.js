@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper'
 
 import { todoActions } from 'actions/todos'
 
-import Todo from './Todo'
+import TodoList from './TodoList'
 
 const styles = {
   extraPadding: {
@@ -24,40 +24,15 @@ const styles = {
   },
 }
 
-const Todos = ({ classes, completionToggled, todos }) => (
+const Todos = ({ classes }) => (
   <FormControl className={ classes.extraPadding } fullWidth>
     <FormLabel className={ classes.centeredWithPadding }component="legend">Pending</FormLabel>
     <FormGroup id='pending'>
-      <Paper className={ classes.extraPadding }>
-        {
-          todos.pending.length ?
-            todos.pending.map(todo =>
-              <Todo
-                key={ todo.id }
-                todo={ todo }
-                todoCompletionToggled={ completionToggled(todo) }/>
-            )
-          :
-          <Grow timeout={ 400 } in className={ classes.centeredWithPadding }>
-            <div>Nothing left to do!</div>
-          </Grow>
-        }
-      </Paper>
+      <TodoList todoStatus="pending" emptyText="Nothing left to do!"/>
     </FormGroup>
     <FormLabel className={ classes.centeredWithPadding } component="legend">Completed</FormLabel>
     <FormGroup id='completed'>
-      <Paper className={ classes.extraPadding }>
-        {
-          todos.completed.length ?
-            todos.completed.map(todo =>
-              <Todo key={ todo.id } todo={ todo } todoCompletionToggled={ completionToggled(todo) }/>
-            )
-          :
-          <Grow timeout={ 400 } in className={ classes.centeredWithPadding }>
-            <div>You might want to start doing something...</div>
-          </Grow>
-        }
-      </Paper>
+      <TodoList todoStatus="completed" emptyText="You might want to start doing something..."/>
     </FormGroup>
   </FormControl>
 )
