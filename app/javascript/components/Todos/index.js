@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import { withStyles } from '@material-ui/core'
 
+import Grow from '@material-ui/core/Grow'
 import FormLabel from '@material-ui/core/FormLabel'
 import FormControl from '@material-ui/core/FormControl'
 import FormGroup from '@material-ui/core/FormGroup'
@@ -37,7 +38,9 @@ const Todos = ({ classes, completionToggled, todos }) => (
                 todoCompletionToggled={ completionToggled(todo) }/>
             )
           :
-          <div className={ classes.centeredWithPadding }>Nothing left to do!</div>
+          <Grow timeout={ 400 } in className={ classes.centeredWithPadding }>
+            <div>Nothing left to do!</div>
+          </Grow>
         }
       </Paper>
     </FormGroup>
@@ -50,7 +53,9 @@ const Todos = ({ classes, completionToggled, todos }) => (
               <Todo key={ todo.id } todo={ todo } todoCompletionToggled={ completionToggled(todo) }/>
             )
           :
-          <div className={ classes.centeredWithPadding }>You might want to start doing something...</div>
+          <Grow timeout={ 400 } in className={ classes.centeredWithPadding }>
+            <div>You might want to start doing something...</div>
+          </Grow>
         }
       </Paper>
     </FormGroup>
