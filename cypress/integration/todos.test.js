@@ -44,4 +44,35 @@ describe('Todos', () => {
       cy.contains('#completed label', todoText).click()
     })
   })
+
+  describe('persistence', () => {
+    describe('on creation', () => {
+      it('persists the created todo', () => {
+        cy.visit('/todos')
+
+        cy.contains(todoText).should('not.exist')
+
+        cy.get('#newTodoText').type(`${todoText}`)
+        cy.get('#createNewTodo').click()
+
+        cy.visit('/todos')
+
+        cy.contains('#pending label', todoText)
+      })
+    })
+
+    describe('on toggle', () => {
+      it('persists the updated state', () => {
+        cy.createTodo(todoText)
+
+        cy.visit('/todos')
+
+        cy.contains('#pending label', todoText).click()
+
+        cy.visit('/todos')
+
+        cy.contains('#completed label', todoText).click()
+      })
+    })
+  })
 })
