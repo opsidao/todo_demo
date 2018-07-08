@@ -3,7 +3,13 @@ import axios from 'axios'
 import { push } from 'connected-react-router'
 import { call, put, takeEvery } from 'redux-saga/effects'
 
-import { FETCH_USER_INFO, LOGIN, USER_INFO_UPDATED, userActions } from 'actions/user'
+import {
+  FETCH_USER_INFO,
+  LOGIN,
+  LOGOUT,
+  USER_INFO_UPDATED,
+  userActions
+} from 'actions/user'
 
 // Action handlers
 export function* fetchUserInfoSaga() {
@@ -26,8 +32,15 @@ export function* userInfoUpdatedSaga(action) {
   }
 }
 
+export function* logoutSaga() {
+  yield call(axios.delete, '/api/sessions')
+
+  yield put(userActions.fetchUserInfo())
+}
+
 export default [
   takeEvery(LOGIN, loginSaga),
   takeEvery(FETCH_USER_INFO, fetchUserInfoSaga),
   takeEvery(USER_INFO_UPDATED, userInfoUpdatedSaga),
+  takeEvery(LOGOUT, logoutSaga),
 ]

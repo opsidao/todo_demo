@@ -6,28 +6,16 @@ import { push } from 'connected-react-router'
 import { call, put } from 'redux-saga/effects'
 
 import { userActions } from 'actions/user'
-import { fetchUserInfoSaga, loginSaga, userInfoUpdatedSaga } from 'sagas/user'
+import { fetchUserInfoSaga, loginSaga, logoutSaga, userInfoUpdatedSaga } from 'sagas/user'
 
 describe('User sagas', () => {
-  const userName = 'adas'
-
-  describe('loginSaga', () => {
-    const saga = loginSaga(userActions.login(userName))
-
-    context('when the request works', () => {
-      it('makes a request to the backend', () => {
-        expect(saga.next().value).to.deep.equal(
-          call(axios.post, '/api/sessions', { username: userName })
-        )
-        expect(saga.next(userName).value).to.deep.equal(
-          put(userActions.userInfoUpdated(userName))
-        )
-      })
-    })
-  })
+  let userName = 'adas'
+  let saga
 
   describe('fetchUserInfoSaga', () => {
-    const saga = fetchUserInfoSaga(userActions.fetchUserInfo())
+    beforeEach(() => {
+      saga = fetchUserInfoSaga(userActions.fetchUserInfo())
+    })
 
     context('when the request works', () => {
       const userInfo = { data: { username: userName } }
@@ -45,9 +33,6 @@ describe('User sagas', () => {
   })
 
   describe('userInfoUpdatedSaga', () => {
-    let userName
-    let saga
-
     context('when a userName is provided', () => {
       beforeEach(() => {
         userName = 'some user name'
@@ -70,6 +55,40 @@ describe('User sagas', () => {
       it('navigates to /login', () => {
         expect(saga.next().value).to.deep.equal(
           put(push('/login'))
+        )
+      })
+    })
+  })
+
+  describe('loginSaga', () => {
+    beforeEach(() => {
+      saga = loginSaga(userActions.login(userName))
+    })
+
+    context('when the request works', () => {
+      it('makes a request to the backend', () => {
+        expect(saga.next().value).to.deep.equal(
+          call(axios.post, '/api/sessions', { username: userName })
+        )
+        expect(saga.next(userName).value).to.deep.equal(
+          put(userActions.userInfoUpdated(userName))
+        )
+      })
+    })
+  })
+
+  describe('logoutSaga', () => {
+    beforeEach(() => {
+      saga = logoutSaga()
+    })
+
+    context('when the request works', () => {
+      it('makes a request to the backend and dispatches a fetchUserInfo', () => {
+        expect(saga.next().value).to.deep.equal(
+          call(axios.delete, '/api/sessions')
+        )
+        expect(saga.next(userName).value).to.deep.equal(
+          put(userActions.fetchUserInfo())
         )
       })
     })
