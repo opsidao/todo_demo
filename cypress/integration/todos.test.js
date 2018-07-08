@@ -75,4 +75,26 @@ describe('Todos', () => {
       })
     })
   })
+
+  describe('todos belong to a user', () => {
+    const anotherUserName = 'anotherDude'
+    const anotherUserTodoText = 'another user todo'
+
+    it.only('stores the todos attached for each username separately', () => {
+      cy.login(userName)
+      cy.createTodo(todoText)
+      cy.visit('/todos')
+      cy.contains('#pending label', todoText)
+
+      cy.login(anotherUserName)
+      cy.createTodo(anotherUserTodoText)
+      cy.visit('/todos')
+      cy.contains('#pending label', anotherUserTodoText)
+
+      cy.login(userName)
+      cy.visit('/todos')
+      cy.contains('#pending label', todoText)
+      cy.contains('#pending label', anotherUserTodoText).should('not.exist')
+    })
+  })
 })
