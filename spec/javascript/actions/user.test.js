@@ -2,11 +2,18 @@ import {
   FETCH_USER_INFO,
   USER_INFO_UPDATED,
   LOGIN,
+  LOGOUT,
   userActions,
 } from 'actions/user'
 
 describe('User actions', () => {
   const userName = 'theUserName'
+
+  describe('fetchUserInfo', () => {
+    it('creates the correct action', () => {
+      expect(userActions.fetchUserInfo()).to.deep.equal({ type: FETCH_USER_INFO })
+    })
+  })
 
   describe('userInfoUpdated', () => {
     it('creates the correct action', () => {
@@ -20,9 +27,9 @@ describe('User actions', () => {
     })
   })
 
-  describe('fetchUserInfo', () => {
+  describe('logout', () => {
     it('creates the correct action', () => {
-      expect(userActions.fetchUserInfo()).to.deep.equal({ type: FETCH_USER_INFO })
+      expect(userActions.logout()).to.deep.equal({ type: LOGOUT })
     })
   })
 })
